@@ -1,6 +1,3 @@
-using System;
-using System.Drawing;
-using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
 namespace TetrisV2;
@@ -14,8 +11,8 @@ public partial class Form1 : Form
     {
         InitializeComponent();
             
-        loadCanvas();
-        currentShape = getRandomShapeWithCenterAligned();
+        LoadCanvas();
+        currentShape = GetRandomShapeWithCenterAligned();
 
         timer.Tick += Timer_Tick;
         timer.Interval = 500;
@@ -24,7 +21,7 @@ public partial class Form1 : Form
     
     private void Timer_Tick(object sender, EventArgs e)
     {
-        var isMoveSuccess = moveShapeIfPossible(moveDown: 1);
+        var isMoveSuccess = MoveShapeIfPossible(moveDown: 1);
 
         // if shape reached bottom or touched any other shapes
         if (!isMoveSuccess)
@@ -32,10 +29,10 @@ public partial class Form1 : Form
             // copy working image into canvas image
             canvasBitmap = new Bitmap(workingBitmap);
 
-            updateCanvasDotArrayWithCurrentShape();
+            UpdateCanvasDotArrayWithCurrentShape();
                 
             // get next shape
-            currentShape = getRandomShapeWithCenterAligned();
+            currentShape = GetRandomShapeWithCenterAligned();
         }
     }
     
@@ -46,7 +43,7 @@ public partial class Form1 : Form
     int[,] canvasDotArray;
     int dotSize = 20;
 
-    private void loadCanvas()
+    private void LoadCanvas()
     {
         // Resize the picture box based on the dotsize and canvas size
         pictureBox1.Width = canvasWidth * dotSize;
@@ -73,7 +70,7 @@ public partial class Form1 : Form
     {
         public int Width;
         public int Height;
-        public int[,] Dots;
+        public required int[,] Dots;
     }
     
     static class ShapesHandler
@@ -84,12 +81,12 @@ public partial class Form1 : Form
         static ShapesHandler()
         {
             // Create shapes add into the array.
-            shapesArray = new Shape[]
+            shapesArray = new[]
                 {
                     new Shape {
                         Width = 2,
                         Height = 2,
-                        Dots = new int[,]
+                        Dots = new[,]
                         {
                             { 1, 1 },
                             { 1, 1 }
@@ -98,7 +95,7 @@ public partial class Form1 : Form
                     new Shape {
                         Width = 1,
                         Height = 4,
-                        Dots = new int[,]
+                        Dots = new[,]
                         {
                             { 1 },
                             { 1 },
@@ -109,7 +106,7 @@ public partial class Form1 : Form
                     new Shape {
                         Width = 3,
                         Height = 2,
-                        Dots = new int[,]
+                        Dots = new[,]
                         {
                             { 0, 1, 0 },
                             { 1, 1, 1 }
@@ -118,7 +115,7 @@ public partial class Form1 : Form
                     new Shape {
                         Width = 3,
                         Height = 2,
-                        Dots = new int[,]
+                        Dots = new[,]
                         {
                             { 0, 0, 1 },
                             { 1, 1, 1 }
@@ -127,7 +124,7 @@ public partial class Form1 : Form
                     new Shape {
                         Width = 3,
                         Height = 2,
-                        Dots = new int[,]
+                        Dots = new[,]
                         {
                             { 1, 0, 0 },
                             { 1, 1, 1 }
@@ -136,7 +133,7 @@ public partial class Form1 : Form
                     new Shape {
                         Width = 3,
                         Height = 2,
-                        Dots = new int[,]
+                        Dots = new[,]
                         {
                             { 1, 1, 0 },
                             { 0, 1, 1 }
@@ -145,7 +142,7 @@ public partial class Form1 : Form
                     new Shape {
                         Width = 3,
                         Height = 2,
-                        Dots = new int[,]
+                        Dots = new[,]
                         {
                             { 0, 1, 1 },
                             { 1, 1, 0 }
@@ -164,7 +161,7 @@ public partial class Form1 : Form
         }
     }
 
-    private Shape getRandomShapeWithCenterAligned()
+    private Shape GetRandomShapeWithCenterAligned()
     {
         var shape = ShapesHandler.GetRandomShape();
             
@@ -176,7 +173,7 @@ public partial class Form1 : Form
     }
     
     // returns if it reaches the bottom or touches any other blocks
-    private bool moveShapeIfPossible(int moveDown = 0, int moveSide = 0)
+    private bool MoveShapeIfPossible(int moveDown = 0, int moveSide = 0)
     {
         var newX = currentX + moveSide;
         var newY = currentY + moveDown;
@@ -199,7 +196,7 @@ public partial class Form1 : Form
         currentX = newX;
         currentY = newY;
 
-        drawShape();
+        DrawShape();
 
         return true;
     }
@@ -207,7 +204,7 @@ public partial class Form1 : Form
     Bitmap workingBitmap;
     Graphics workingGraphics;
 
-    private void drawShape()
+    private void DrawShape()
     {
         workingBitmap = new Bitmap(canvasBitmap);
         workingGraphics = Graphics.FromImage(workingBitmap);
@@ -224,7 +221,7 @@ public partial class Form1 : Form
         pictureBox1.Image = workingBitmap;
     }
     
-    private void updateCanvasDotArrayWithCurrentShape()
+    private void UpdateCanvasDotArrayWithCurrentShape()
     {
         for (int i = 0; i < currentShape.Width; i++)
         {
@@ -232,7 +229,7 @@ public partial class Form1 : Form
             {
                 if (currentShape.Dots[j, i] == 1)
                 {
-                    checkIfGameOver();
+                    CheckIfGameOver();
 
                     canvasDotArray[currentX + i, currentY + j] = 1;
                 }
@@ -240,7 +237,7 @@ public partial class Form1 : Form
         }
     }
 
-    private void checkIfGameOver()
+    private void CheckIfGameOver()
     {
         if (currentY < 0)
         {
