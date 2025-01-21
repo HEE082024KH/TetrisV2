@@ -193,4 +193,29 @@ public partial class Form1 : Form
             return shape;
         }
     }
+    private void updateCanvasDotArrayWithCurrentShape()
+    {
+        for (int i = 0; i < currentShape.Width; i++)
+        {
+            for (int j = 0; j < currentShape.Height; j++)
+            {
+                if (currentShape.Dots[j, i] == 1)
+                {
+                    checkIfGameOver();
+
+                    canvasDotArray[currentX + i, currentY + j] = 1;
+                }
+            }
+        }
+    }
+
+    private void checkIfGameOver()
+    {
+        if (currentY < 0)
+        {
+            timer.Stop();
+            MessageBox.Show("Game Over");
+            Application.Restart();
+        }
+    }
 }
