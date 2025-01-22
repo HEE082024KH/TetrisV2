@@ -4,6 +4,7 @@ namespace TetrisV2;
 
 public partial class Form1 : Form
 {
+    // Test comment
     Shape currentShape;
     Timer timer = new Timer();
     
