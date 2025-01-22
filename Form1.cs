@@ -18,7 +18,8 @@ public partial class Form1 : Form
         timer.Interval = 500;
         timer.Start();
     }
-    
+
+    // Make shapes move down every tick
     private void Timer_Tick(object sender, EventArgs e)
     {
         var isMoveSuccess = MoveShapeIfPossible(moveDown: 1);
@@ -72,7 +73,8 @@ public partial class Form1 : Form
         public int Height;
         public required int[,] Dots;
     }
-    
+
+    // Holds the different shapes
     static class ShapesHandler
     {
         private static Shape[] shapesArray;
@@ -168,6 +170,7 @@ public partial class Form1 : Form
         }
     }
 
+    // Drop shapes in the center
     private Shape GetRandomShapeWithCenterAligned()
     {
         var shape = ShapesHandler.GetRandomShape();
@@ -179,7 +182,7 @@ public partial class Form1 : Form
         return shape;
     }
     
-    // returns if it reaches the bottom or touches any other blocks
+    // Returns if it reaches the bottom or touches any other blocks
     private bool MoveShapeIfPossible(int moveDown = 0, int moveSide = 0)
     {
         var newX = currentX + moveSide;
@@ -211,6 +214,7 @@ public partial class Form1 : Form
     Bitmap workingBitmap;
     Graphics workingGraphics;
 
+    // Draws shapes with specified color
     private void DrawShape()
     {
         workingBitmap = new Bitmap(canvasBitmap);
