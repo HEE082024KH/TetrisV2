@@ -83,7 +83,8 @@ public partial class Form1 : Form
             // Create shapes add into the array.
             shapesArray = new[]
                 {
-                    new Shape {
+                    new Shape
+                    {
                         Width = 2,
                         Height = 2,
                         Dots = new[,]
@@ -92,7 +93,8 @@ public partial class Form1 : Form
                             { 1, 1 }
                         }
                     },
-                    new Shape {
+                    new Shape
+                    {
                         Width = 1,
                         Height = 4,
                         Dots = new[,]
@@ -103,7 +105,8 @@ public partial class Form1 : Form
                             { 0, 1 }
                         }
                     },
-                    new Shape {
+                    new Shape 
+                    {
                         Width = 3,
                         Height = 2,
                         Dots = new[,]
@@ -112,7 +115,8 @@ public partial class Form1 : Form
                             { 1, 1, 1 }
                         }
                     },
-                    new Shape {
+                    new Shape 
+                    {
                         Width = 3,
                         Height = 2,
                         Dots = new[,]
@@ -121,7 +125,8 @@ public partial class Form1 : Form
                             { 1, 1, 1 }
                         }
                     },
-                    new Shape {
+                    new Shape 
+                    {
                         Width = 3,
                         Height = 2,
                         Dots = new[,]
@@ -130,7 +135,8 @@ public partial class Form1 : Form
                             { 1, 1, 1 }
                         }
                     },
-                    new Shape {
+                    new Shape 
+                    {
                         Width = 3,
                         Height = 2,
                         Dots = new[,]
@@ -139,7 +145,8 @@ public partial class Form1 : Form
                             { 0, 1, 1 }
                         }
                     },
-                    new Shape {
+                    new Shape 
+                    {
                         Width = 3,
                         Height = 2,
                         Dots = new[,]
