@@ -38,7 +38,7 @@ public partial class Form1 : Form
     
     Bitmap canvasBitmap;
     Graphics canvasGraphics;
-    int canvasWidth = 15;
+    int canvasWidth = 17;
     int canvasHeight = 20;
     int[,] canvasDotArray;
     int dotSize = 20;
@@ -54,7 +54,7 @@ public partial class Form1 : Form
 
         canvasGraphics = Graphics.FromImage(canvasBitmap);
 
-        canvasGraphics.FillRectangle(Brushes.Black, 0, 0, canvasBitmap.Width, canvasBitmap.Height);
+        canvasGraphics.FillRectangle(Brushes.DarkSlateGray, 0, 0, canvasBitmap.Width, canvasBitmap.Height);
 
         // Load bitmap into picture box
         pictureBox1.Image = canvasBitmap;
@@ -97,10 +97,10 @@ public partial class Form1 : Form
                         Height = 4,
                         Dots = new[,]
                         {
-                            { 1 },
-                            { 1 },
-                            { 1 },
-                            { 1 }
+                            { 0, 1 },
+                            { 0, 1 },
+                            { 0, 1 },
+                            { 0, 1 }
                         }
                     },
                     new Shape {
@@ -214,7 +214,7 @@ public partial class Form1 : Form
             for (int j = 0; j < currentShape.Height; j++)
             {
                 if (currentShape.Dots[j, i] == 1)
-                    workingGraphics.FillRectangle(Brushes.Yellow, (currentX + i) * dotSize, (currentY + j) * dotSize, dotSize, dotSize);
+                    workingGraphics.FillRectangle(Brushes.LightSalmon, (currentX + i) * dotSize, (currentY + j) * dotSize, dotSize, dotSize);
             }
         }
 
