@@ -174,13 +174,7 @@ public partial class Form1 : Form
                 verticalMove++;
                 break;
             case Keys.Up:
-                try
-                {
                 currentShape.Turn();
-                }
-                catch (Exception exception)
-                {
-                }
                 break;
             default:
                 return;
