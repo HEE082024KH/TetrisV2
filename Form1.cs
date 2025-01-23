@@ -68,143 +68,6 @@ public partial class Form1 : Form
         // Initialize canvas dot array. by default all elements are zero
         canvasDotArray = new int[canvasWidth, canvasHeight];
     }
-    
-    class Shape
-    {
-        public int Width;
-        public int Height;
-        public required int[,] Dots;
-
-        private int[,] backupDots;
-
-        public void Turn()
-        {
-            // back the dots values into backup dots
-            // so that it can be simply used for rolling back
-            backupDots = Dots;
-            
-            Dots = new int[Height, Width];
-
-            for (int i = 0; i < Width; i++)
-            {
-                for (int j = 0; j < Height; j++)
-                {
-                    Dots[i, j] = backupDots[Height - 1 - j, i];
-                }
-            }
-
-            var temp = Width;
-            Width = Height;
-            Height = temp;
-        }
-        
-        // the rolling back occurs when player rotating the shape
-        // but it will touch other shapes and needs to be rolled back
-        public void Rollback()
-        {
-            Dots = backupDots;
-            
-            var temp = Width;
-            Width = Height;
-            Height = temp;
-        }
-    }
-
-    static class ShapesHandler
-    {
-    // Holds the different shapes
-        private static Shape[] shapesArray;
-        
-        // static constructor : No need to manually initialize
-        static ShapesHandler()
-        {
-            // Create shapes add into the array.
-            shapesArray = new[]
-                {
-                    new Shape
-                    {
-                        Width = 2,
-                        Height = 2,
-                        Dots = new[,]
-                        {
-                            { 1, 1 },
-                            { 1, 1 }
-                        }
-                    },
-                    new Shape
-                    {
-                        Width = 1,
-                        Height = 4,
-                        Dots = new[,]
-                        {
-                            { 0, 1 },
-                            { 0, 1 },
-                            { 0, 1 },
-                            { 0, 1 }
-                        }
-                    },
-                    new Shape 
-                    {
-                        Width = 3,
-                        Height = 2,
-                        Dots = new[,]
-                        {
-                            { 0, 1, 0 },
-                            { 1, 1, 1 }
-                        }
-                    },
-                    new Shape 
-                    {
-                        Width = 3,
-                        Height = 2,
-                        Dots = new[,]
-                        {
-                            { 0, 0, 1 },
-                            { 1, 1, 1 }
-                        }
-                    },
-                    new Shape 
-                    {
-                        Width = 3,
-                        Height = 2,
-                        Dots = new[,]
-                        {
-                            { 1, 0, 0 },
-                            { 1, 1, 1 }
-                        }
-                    },
-                    new Shape 
-                    {
-                        Width = 3,
-                        Height = 2,
-                        Dots = new[,]
-                        {
-                            { 1, 1, 0 },
-                            { 0, 1, 1 }
-                        }
-                    },
-                    new Shape 
-                    {
-                        Width = 3,
-                        Height = 2,
-                        Dots = new[,]
-                        {
-                            { 0, 1, 1 },
-                            { 1, 1, 0 }
-                        }
-                    }
-                    // new shapes can be added here..
-                };
-        }
-        
-        // Get a shape form the array in a random basis
-        public static Shape GetRandomShape()
-        {
-            var shape = shapesArray[new Random().Next(shapesArray.Length)];
-
-            return shape;
-        }
-    }
 
     private Shape GetRandomShapeWithCenterAligned()
     {
@@ -301,13 +164,13 @@ public partial class Form1 : Form
         switch (e.KeyCode)
         {
             case Keys.Left:
-                verticalMove--;
+                horizontalMove--;
                 break;
             case Keys.Right:
-                verticalMove++;
+                horizontalMove++;
                 break;
             case Keys.Down:
-                horizontalMove++;
+                verticalMove++;
                 break;
             case Keys.Up:
                 currentShape.Turn();
