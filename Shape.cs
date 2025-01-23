@@ -14,7 +14,7 @@ class Shape
         // so that it can be simply used for rolling back
         backupDots = Dots;
             
-        Dots = new int[Height, Width];
+        Dots = new int[Width, Height];
 
         for (int i = 0; i < Width; i++)
         {
