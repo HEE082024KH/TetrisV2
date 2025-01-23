@@ -26,10 +26,10 @@ static class ShapesHandler
                         Height = 4,
                         Dots = new[,]
                         {
-                            { 0, 1 },
-                            { 0, 1 },
-                            { 0, 1 },
-                            { 0, 1 }
+                            { 1 },
+                            { 1 },
+                            { 1 },
+                            { 1 }
                         }
                     },
                     new Shape 
