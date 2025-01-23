@@ -54,6 +54,7 @@ partial class Form1
         pictureBox2.Size = new System.Drawing.Size(211, 319);
         pictureBox2.TabIndex = 1;
         pictureBox2.TabStop = false;
+        pictureBox2.Click += pictureBox2_Click;
         // 
         // label1
         // 

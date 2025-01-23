@@ -17,6 +17,7 @@ public partial class Form1 : Form
     int currentY;
     Bitmap workingBitmap;
     Graphics workingGraphics;
+    private int score;
     
     public Form1()
     {
@@ -189,6 +190,71 @@ public partial class Form1 : Form
             currentShape.Rollback();
         }
     }
-    
-    
+
+    public void clearFilledRowsAndUpdateScore()
+    {
+        // check through each rows
+        for (int i = 0; i < canvasHeight; i++)
+        {
+            int j;
+            for (j = canvasWidth - 1; j >= 0; j--)
+            {
+                if (canvasDotArray[j, i] == 0)
+                {
+                    break;
+                }
+            }
+
+            if (j == -1)
+            {
+                // update score and level values and labels
+                score++;
+                label1.Text = "Score: " + score;
+                label2.Text = "Level: " + score / 10;
+                // increase the speed 
+                timer.Interval -= 50;
+                
+                // update the dot array based on the check
+                for (j = 0; j < canvasHeight; j++)
+                {
+                    for (int k = i; k > 0; k--)
+                    {
+                        canvasDotArray[j, k] = canvasDotArray[j, k - 1];
+                    }
+
+                    canvasDotArray[j, i] = 0;
+                }
+            }
+        }
+
+        for (int i = 0; i < canvasWidth; i++)
+        {
+            for (int j = 0; j < canvasHeight; j++)
+            {
+                canvasGraphics = Graphics.FromImage(canvasBitmap);
+                canvasGraphics.FillRectangle(
+                    canvasDotArray[i, j] == 1 ? Brushes.LightSalmon : Brushes.DarkSlateGray,
+                    i * dotSize, j * dotSize, dotSize, dotSize
+                    );
+            }
+        }
+        
+        pictureBox1.Image = canvasBitmap;
+    }
+
+    private void pictureBox1_Click(object sender, EventArgs e)
+    {
+    }
+    private void label1_Click(object sender, EventArgs e)
+    {
+    }
+    private void label2_Click(object sender, EventArgs e)
+    {
+    }
+    private void label3_Click(object sender, EventArgs e)
+    {
+    }
+    private void pictureBox2_Click(object sender, EventArgs e)
+    {
+    }
 }
