@@ -4,9 +4,18 @@ namespace TetrisV2;
 
 public partial class Form1 : Form
 {
-    // Test comment
     Shape currentShape;
     Timer timer = new Timer();
+    Bitmap canvasBitmap;
+    Graphics canvasGraphics;
+    int canvasWidth = 17;
+    int canvasHeight = 20;
+    int[,] canvasDotArray;
+    int dotSize = 20;
+    int currentX;
+    int currentY;
+    Bitmap workingBitmap;
+    Graphics workingGraphics;
     
     public Form1()
     {
@@ -18,11 +27,13 @@ public partial class Form1 : Form
         timer.Tick += Timer_Tick;
         timer.Interval = 500;
         timer.Start();
+
+        this.KeyDown += Form1_KeyDown;
     }
 
-    // Make shapes move down every tick
     private void Timer_Tick(object sender, EventArgs e)
     {
+    // Make shapes move down every tick
         var isMoveSuccess = MoveShapeIfPossible(moveDown: 1);
 
         // if shape reached bottom or touched any other shapes
@@ -38,13 +49,6 @@ public partial class Form1 : Form
         }
     }
     
-    Bitmap canvasBitmap;
-    Graphics canvasGraphics;
-    int canvasWidth = 17;
-    int canvasHeight = 20;
-    int[,] canvasDotArray;
-    int dotSize = 20;
-
     private void LoadCanvas()
     {
         // Resize the picture box based on the dotsize and canvas size
@@ -64,9 +68,6 @@ public partial class Form1 : Form
         // Initialize canvas dot array. by default all elements are zero
         canvasDotArray = new int[canvasWidth, canvasHeight];
     }
-    
-    int currentX;
-    int currentY;
     
     class Shape
     {
@@ -109,9 +110,9 @@ public partial class Form1 : Form
         }
     }
 
-    // Holds the different shapes
     static class ShapesHandler
     {
+    // Holds the different shapes
         private static Shape[] shapesArray;
         
         // static constructor : No need to manually initialize
@@ -205,9 +206,9 @@ public partial class Form1 : Form
         }
     }
 
-    // Drop shapes in the center
     private Shape GetRandomShapeWithCenterAligned()
     {
+    // Drop shapes in the center
         var shape = ShapesHandler.GetRandomShape();
             
         // Calculate the x and y values as if the shape lies in the center
@@ -217,9 +218,9 @@ public partial class Form1 : Form
         return shape;
     }
     
-    // Returns if it reaches the bottom or touches any other blocks
     private bool MoveShapeIfPossible(int moveDown = 0, int moveSide = 0)
     {
+    // Returns if it reaches the bottom or touches any other blocks
         var newX = currentX + moveSide;
         var newY = currentY + moveDown;
 
@@ -245,13 +246,10 @@ public partial class Form1 : Form
 
         return true;
     }
-
-    Bitmap workingBitmap;
-    Graphics workingGraphics;
-
-    // Draws shapes with specified color
+    
     private void DrawShape()
     {
+    // Draws shapes with specified color
         workingBitmap = new Bitmap(canvasBitmap);
         workingGraphics = Graphics.FromImage(workingBitmap);
 
@@ -291,5 +289,10 @@ public partial class Form1 : Form
             MessageBox.Show("Game Over");
             Application.Restart();
         }
+    }
+
+    private void Form1_KeyDown(object sender, EventArgs e)
+    {
+        
     }
 }
