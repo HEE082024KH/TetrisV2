@@ -291,8 +291,38 @@ public partial class Form1 : Form
         }
     }
 
-    private void Form1_KeyDown(object sender, EventArgs e)
+    private void Form1_KeyDown(object sender, KeyEventArgs e)
     {
+        var verticalMove = 0;
+        var horizontalMove = 0;
         
+        // calculate the vertical and horizontal move values
+        // based on the key pressed
+        switch (e.KeyCode)
+        {
+            case Keys.Left:
+                verticalMove--;
+                break;
+            case Keys.Right:
+                verticalMove++;
+                break;
+            case Keys.Down:
+                horizontalMove++;
+                break;
+            case Keys.Up:
+                currentShape.Turn();
+                break;
+            default:
+                return;
+        }
+        
+        var isMoveSuccess = MoveShapeIfPossible(verticalMove, horizontalMove);
+        
+        // if the player was trying to rotate the shape, but
+        // that move was not possible - rollback the shape
+        if (!isMoveSuccess && e.KeyCode == Keys.Up)
+        {
+            currentShape.Rollback();
+        }
     }
 }
