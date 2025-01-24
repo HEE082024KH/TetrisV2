@@ -242,6 +242,7 @@ public partial class Form1 : Form
         pictureBox1.Image = canvasBitmap;
     }
 
+    // Template code for Windows Forms elements
     private void pictureBox1_Click(object sender, EventArgs e)
     {
     }
