@@ -4,7 +4,6 @@ namespace TetrisV2;
 
 public partial class Form1 : Form
 {
-    // TEST
     Shape currentShape;
     Timer timer = new Timer();
     Bitmap canvasBitmap;
