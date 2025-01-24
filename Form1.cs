@@ -4,7 +4,6 @@ namespace TetrisV2;
 
 public partial class Form1 : Form
 {
-    // Comment to test if commits work again
     Shape currentShape;
     Timer timer = new Timer();
     Bitmap canvasBitmap;
@@ -18,11 +17,11 @@ public partial class Form1 : Form
     Bitmap workingBitmap;
     Graphics workingGraphics;
     private int score;
-    
+
     public Form1()
     {
         InitializeComponent();
-            
+
         LoadCanvas();
         currentShape = GetRandomShapeWithCenterAligned();
 
@@ -35,7 +34,7 @@ public partial class Form1 : Form
 
     private void Timer_Tick(object sender, EventArgs e)
     {
-    // Make shapes move down every tick
+        // Make shapes move down every tick
         var isMoveSuccess = MoveShapeIfPossible(moveDown: 1);
 
         // if shape reached bottom or touched any other shapes
@@ -45,12 +44,12 @@ public partial class Form1 : Form
             canvasBitmap = new Bitmap(workingBitmap);
 
             UpdateCanvasDotArrayWithCurrentShape();
-                
+
             // get next shape
             currentShape = GetRandomShapeWithCenterAligned();
         }
     }
-    
+
     private void LoadCanvas()
     {
         // Resize the picture box based on the dotsize and canvas size
@@ -66,26 +65,26 @@ public partial class Form1 : Form
 
         // Load bitmap into picture box
         pictureBox1.Image = canvasBitmap;
-            
+
         // Initialize canvas dot array. by default all elements are zero
         canvasDotArray = new int[canvasWidth, canvasHeight];
     }
 
     private Shape GetRandomShapeWithCenterAligned()
     {
-    // Drop shapes in the center
+        // Drop shapes in the center
         var shape = ShapesHandler.GetRandomShape();
-            
+
         // Calculate the x and y values as if the shape lies in the center
         currentX = 7;
         currentY = -shape.Height;
 
         return shape;
     }
-    
+
     private bool MoveShapeIfPossible(int moveDown = 0, int moveSide = 0)
     {
-    // Returns if it reaches the bottom or touches any other blocks
+        // Returns if it reaches the bottom or touches any other blocks
         var newX = currentX + moveSide;
         var newY = currentY + moveDown;
 
@@ -111,10 +110,10 @@ public partial class Form1 : Form
 
         return true;
     }
-    
+
     private void DrawShape()
     {
-    // Draws shapes with specified color
+        // Draws shapes with specified color
         workingBitmap = new Bitmap(canvasBitmap);
         workingGraphics = Graphics.FromImage(workingBitmap);
 
@@ -129,7 +128,7 @@ public partial class Form1 : Form
 
         pictureBox1.Image = workingBitmap;
     }
-    
+
     private void UpdateCanvasDotArrayWithCurrentShape()
     {
         for (int i = 0; i < currentShape.Width; i++)
@@ -160,7 +159,7 @@ public partial class Form1 : Form
     {
         var verticalMove = 0;
         var horizontalMove = 0;
-        
+
         // calculate the vertical and horizontal move values
         // based on the key pressed
         switch (e.KeyCode)
@@ -180,9 +179,9 @@ public partial class Form1 : Form
             default:
                 return;
         }
-        
+
         var isMoveSuccess = MoveShapeIfPossible(verticalMove, horizontalMove);
-        
+
         // if the player was trying to rotate the shape, but
         // that move was not possible - rollback the shape
         if (!isMoveSuccess && e.KeyCode == Keys.Up)
@@ -213,7 +212,7 @@ public partial class Form1 : Form
                 label2.Text = "Level: " + score / 10;
                 // increase the speed 
                 timer.Interval -= 50;
-                
+
                 // update the dot array based on the check
                 for (j = 0; j < canvasHeight; j++)
                 {
@@ -238,7 +237,7 @@ public partial class Form1 : Form
                     );
             }
         }
-        
+
         pictureBox1.Image = canvasBitmap;
     }
 
