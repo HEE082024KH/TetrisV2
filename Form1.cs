@@ -220,7 +220,7 @@ public partial class Form1 : Form
                 label1.Text = "Score: " + score;
                 label2.Text = "Level: " + score / 10;
                 // increase the speed 
-                timer.Interval -= 50;
+                timer.Interval -= 10;
 
                 // update the dot array based on the check
                 for (j = 0; j < canvasHeight; j++)
@@ -230,7 +230,7 @@ public partial class Form1 : Form
                         canvasDotArray[j, k] = canvasDotArray[j, k - 1];
                     }
 
-                    canvasDotArray[j, i] = 0;
+                    canvasDotArray[j, 0] = 0;
                 }
             }
         }
