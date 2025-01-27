@@ -7,7 +7,9 @@ public partial class Form1 : Form
     Shape currentShape;
     Timer timer = new Timer();
     Bitmap canvasBitmap;
+    Bitmap nextShapeBitmap;
     Graphics canvasGraphics;
+    Graphics nextShapeGraphics;
     int canvasWidth = 17;
     int canvasHeight = 20;
     int[,] canvasDotArray;
@@ -190,7 +192,7 @@ public partial class Form1 : Form
         }
     }
 
-    public void clearFilledRowsAndUpdateScore()
+    public void ClearFilledRowsAndUpdateScore()
     {
         // check through each rows
         for (int i = 0; i < canvasHeight; i++)
@@ -239,6 +241,35 @@ public partial class Form1 : Form
         }
 
         pictureBox1.Image = canvasBitmap;
+    }
+
+    private Shape GetNextShape()
+    {
+        var shape = GetRandomShapeWithCenterAligned();
+        
+        // Codes to show the next shape in the side panel
+        nextShapeBitmap = new Bitmap(6 * dotSize, 6 * dotSize);
+        nextShapeGraphics = Graphics.FromImage(nextShapeBitmap);
+        
+        nextShapeGraphics.FillRectangle(Brushes.DarkSlateGray, 0, 0, nextShapeBitmap.Width, nextShapeBitmap.Height);
+        
+        // Find the ideal position for the shape in the side panel
+        var startX = (6 - shape.Width) / 2;
+        var startY = (6 - shape.Height) / 2;
+
+        for (int i = 0; i < shape.Height; i++)
+        {
+            for (int j = 0; j < shape.Width; j++)
+            {
+                nextShapeGraphics.FillRectangle(
+                    shape.Dots[j, i] == 1 ? Brushes.LightSalmon : Brushes.DarkSlateGray,
+                    (startX + j) * dotSize, (startY + i) * dotSize, dotSize, dotSize);
+            }
+        }
+        
+        pictureBox2.Size = nextShapeBitmap.Size;
+        pictureBox2.Image = nextShapeBitmap;
+        return shape;
     }
 
     // Template code for Windows Forms elements
