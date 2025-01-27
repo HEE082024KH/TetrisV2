@@ -5,10 +5,13 @@ namespace TetrisV2;
 public partial class Form1 : Form
 {
     Shape currentShape;
+    Shape nextShape;
     Timer timer = new Timer();
     Bitmap canvasBitmap;
+    Bitmap workingBitmap;
     Bitmap nextShapeBitmap;
     Graphics canvasGraphics;
+    Graphics workingGraphics;
     Graphics nextShapeGraphics;
     int canvasWidth = 17;
     int canvasHeight = 20;
@@ -16,8 +19,6 @@ public partial class Form1 : Form
     int dotSize = 20;
     int currentX;
     int currentY;
-    Bitmap workingBitmap;
-    Graphics workingGraphics;
     private int score;
 
     public Form1()
@@ -32,6 +33,9 @@ public partial class Form1 : Form
         timer.Start();
 
         this.KeyDown += Form1_KeyDown;
+        
+        currentShape = GetRandomShapeWithCenterAligned();
+        nextShape = GetNextShape();
     }
 
     private void Timer_Tick(object sender, EventArgs e)
@@ -48,7 +52,10 @@ public partial class Form1 : Form
             UpdateCanvasDotArrayWithCurrentShape();
 
             // get next shape
-            currentShape = GetRandomShapeWithCenterAligned();
+            currentShape = nextShape;
+            nextShape = GetNextShape();
+            
+            ClearFilledRowsAndUpdateScore();
         }
     }
 
@@ -262,7 +269,7 @@ public partial class Form1 : Form
             for (int j = 0; j < shape.Width; j++)
             {
                 nextShapeGraphics.FillRectangle(
-                    shape.Dots[j, i] == 1 ? Brushes.LightSalmon : Brushes.DarkSlateGray,
+                    shape.Dots[i, j] == 1 ? Brushes.LightSalmon : Brushes.DarkSlateGray,
                     (startX + j) * dotSize, (startY + i) * dotSize, dotSize, dotSize);
             }
         }
