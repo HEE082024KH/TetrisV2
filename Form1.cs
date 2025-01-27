@@ -223,7 +223,7 @@ public partial class Form1 : Form
                 timer.Interval -= 10;
 
                 // update the dot array based on the check
-                for (j = 0; j < canvasHeight; j++)
+                for (j = 0; j < canvasWidth; j++)
                 {
                     for (int k = i; k > 0; k--)
                     {
