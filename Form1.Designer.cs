@@ -40,7 +40,8 @@ partial class Form1
         // 
         // pictureBox1
         // 
-        pictureBox1.Location = new System.Drawing.Point(12, 8);
+        pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+        pictureBox1.Location = new System.Drawing.Point(235, 20);
         pictureBox1.Name = "pictureBox1";
         pictureBox1.Size = new System.Drawing.Size(731, 632);
         pictureBox1.TabIndex = 0;
@@ -90,6 +91,7 @@ partial class Form1
         // 
         AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        BackColor = System.Drawing.Color.Black;
         ClientSize = new System.Drawing.Size(982, 653);
         Controls.Add(label3);
         Controls.Add(label2);

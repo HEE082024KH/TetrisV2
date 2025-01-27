@@ -13,8 +13,8 @@ public partial class Form1 : Form
     Graphics canvasGraphics;
     Graphics workingGraphics;
     Graphics nextShapeGraphics;
-    int canvasWidth = 17;
-    int canvasHeight = 20;
+    int canvasWidth = 25;
+    int canvasHeight = 30;
     int[,] canvasDotArray;
     int dotSize = 20;
     int currentX;
@@ -85,7 +85,7 @@ public partial class Form1 : Form
         var shape = ShapesHandler.GetRandomShape();
 
         // Calculate the x and y values as if the shape lies in the center
-        currentX = 7;
+        currentX = 12;
         currentY = -shape.Height;
 
         return shape;
